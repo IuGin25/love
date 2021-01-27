@@ -12,18 +12,18 @@ function drawGame()
   love.graphics.circle("fill", ball.x, ball.y, 20)
 end
 
-function movePlayer1()
+function movePlayer1(dt)
   if love.keyboard.isDown("w") and player.y > 50 then
-    player.y = player.y - player.speed
+    player.y = player.y - player.speed * dt
   end
   if love.keyboard.isDown("s") and player.y + 200 < love.graphics.getHeight()-50 then
-    player.y = player.y + player.speed
+    player.y = player.y + player.speed * dt
   end
 end
 
-function moveBall()
-  ball.x = ball.x + ball.speed * ball.dx
-  ball.y = ball.y + ball.speed * ball.dy
+function moveBall(dt)
+  ball.x = ball.x + ball.speed * ball.dx * dt
+  ball.y = ball.y + ball.speed * ball.dy * dt
 
   if ball.x-20 <= player.x+25 and ball.y >= player.y and ball.y <= player.y+200 then
     ball.dx = 1
@@ -66,12 +66,12 @@ function moveBall()
   end
 end
 
-function playerAI()
+function playerAI(dt)
   if ball.y > player2.y+100 and player2.y + 200 < love.graphics.getHeight()-50 then
-    player2.y = player2.y + player2.speed
+    player2.y = player2.y + player2.speed * dt
   end
   if ball.y < player2.y+100 and player2.y > 50 then
-    player2.y = player2.y - player2.speed
+    player2.y = player2.y - player2.speed * dt
   end
 end
 
@@ -119,7 +119,11 @@ function won()
 end
 
 function updateWin()
-
+  if love.keyboard.isDown("return") then
+    screen = "game"
+  end
+  score1 = 0
+  score2 = 0
 end
 
 function drawWin()
@@ -132,4 +136,6 @@ function drawWin()
   else
     love.graphics.print("Player 2 won!",love.graphics.getWidth()/2-150, love.graphics.getHeight()/2-50)
   end
+
+  love.graphics.print("Press 'enter' to continuati",love.graphics.getWidth()/2-250,love.graphics.getHeight()-400 )
 end

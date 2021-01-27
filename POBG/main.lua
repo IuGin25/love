@@ -7,19 +7,19 @@ function love.load()
   ball = {}
   ball.x = love.graphics.getWidth()/2
   ball.y = love.graphics.getHeight()/2
-  ball.speed = 10
+  ball.speed = 1000
   ball.dx = -1
   ball.dy = 0
 
   player = {}
   player.x = 50
   player.y = (love.graphics.getHeight()/2)-100
-  player.speed = 4.5
+  player.speed = 450
 
   player2 = {}
   player2.x = love.graphics.getWidth()-50
   player2.y = (love.graphics.getHeight()/2)-100
-  player2.speed = 4
+  player2.speed = 400
 
   menuFont = love.graphics.newFont(40)
 
@@ -32,9 +32,9 @@ function love.update(dt)
   if screen == "menu" then
     updatemenu()
   elseif screen == "game" then
-    movePlayer1()
-    moveBall()
-    playerAI()
+    movePlayer1(dt)
+    moveBall(dt)
+    playerAI(dt)
     won()
   else
     updateWin()
